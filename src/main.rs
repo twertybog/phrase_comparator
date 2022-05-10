@@ -1,10 +1,10 @@
 mod process_message;
 use process_message::process_message;
-use frankenstein::AsyncApi;
+use frankenstein::{AsyncApi, UpdateContent};
 use frankenstein::AsyncTelegramApi;
 use frankenstein::GetUpdatesParams;
 
-static TOKEN: &str = "";
+static TOKEN: &str = "1738132292:AAFqt_SGEEdfAH4mZOOfVAK5npssmg8DkP8";
 #[tokio::main]
 async fn main() {
     let api = AsyncApi::new(TOKEN);
@@ -15,12 +15,12 @@ async fn main() {
 
     loop{
         let result = api.get_updates(&update_params).await;
-        println!("result: {:?}", result);
+        //println!("result: {:?}", result);
 
         match result {
             Ok(response) => {
                 for update in response.result {
-                    if let Some(message) = update.message {
+                    if let UpdateContent::Message(message) = update.content {
                         let api_clone = api.clone();
                         tokio::spawn (async move{
                             process_message(message, api_clone).await;
