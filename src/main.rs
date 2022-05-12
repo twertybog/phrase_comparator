@@ -4,7 +4,8 @@ use frankenstein::{AsyncApi, UpdateContent};
 use frankenstein::AsyncTelegramApi;
 use frankenstein::GetUpdatesParams;
 
-static TOKEN: &str = "1738132292:AAFqt_SGEEdfAH4mZOOfVAK5npssmg8DkP8";
+
+static TOKEN: &str = "TOKEN";
 #[tokio::main]
 async fn main() {
     let api = AsyncApi::new(TOKEN);
@@ -15,7 +16,7 @@ async fn main() {
 
     loop{
         let result = api.get_updates(&update_params).await;
-        //println!("result: {:?}", result);
+        println!("result: {:?}", result);
 
         match result {
             Ok(response) => {
